@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Ticketing Center</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-image: url('ohyestickets.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .btn-danger {
+            background-color: #af4d4a;
+            border-color: #d43f00;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+        }
+
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            margin-top: 10px;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        .w-100{
+            width: 100%;
+        }
+
+        .mb-10{
+             margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to the Online Ticketing Center</h1>
+        <p>Enter your personal information, choose your concert ticket, and let us calculate your final price!</p>
+
+        <!-- submit personal info -->
+        <form id="personalInfoForm">
+            <div class="mb-3">
+                <label for="name">Complete Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="submitInfo()">Submit Info</button>
+        </form>
+
+        <br>
+
+        <!-- select ur ticket -->
+        <form>
+            <div class="mb-3">
+                <label for="ticket">WAVE TO EARTH LIVE IN MANILA:</label>
+                <select class="form-select" id="ticket">
+                    <option value="none">Select</option>
+                    <option value="9700">SVIP PACKAGE - Standing - ₱ 9,700</option> 
+                    <option value="5700">LOWER BOX REGULAR - Reserved Seating - ₱ 5,700</option> 
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="discount">Discount:</label>
+                <select class="form-select" id="discount">
+                    <option value="none">Select</option>    
+                    <option value="0.2">PWD/Senior Citizen/Student - 20%</option> 
+                    <option value="0">Regular - No Discount</option>  
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-danger" onclick="check_discount()">Calculate Ticket Price</button>
+        </form>
+
+        <br>
+
+        <!-- button to buy more tix -->
+        <button type="button" class="btn btn-success" onclick="buyMoreTickets()">Buy More Tickets</button>
+
+        <!-- print ticket picture -->
+        <button type="button" class="btn btn-info" onClick="toggleImage()" class="w-100 mb-10">Print Ticket</button>
+
+        <img src="printticket.png" id="image" class="hidden w-100"/>
+    </div>
+
+    <script>
+        // submit personal info
+        function submitInfo() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            if (name && email) {
+                window.alert("Thank you for submitting your information, " + name + "!");
+            } else {
+                window.alert("Please enter both your name and email.");
+            }
+        }
+
+        // calculate the discount
+        function check_discount() {
+            var ticket = document.getElementById('ticket').value;
+            var disc = document.getElementById('discount').value;
+
+            if (ticket === "none" || disc === "none") {
+                window.alert("Please select both a ticket and a discount option.");
+                return;
+            }
+
+            var final_rate = ticket - (disc * ticket);
+
+            window.alert('Your ticket price is ₱' + final_rate.toFixed(2));
+        }
+
+        // refreshes page
+        function buyMoreTickets() {
+            window.location.reload(); 
+        }
+
+        // show ticket pic
+        function toggleImage(){
+        document.querySelector('#image').classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>
